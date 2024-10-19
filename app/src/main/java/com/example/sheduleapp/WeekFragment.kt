@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sheduleapp.databinding.FragmentWeekBinding
+import java.util.Calendar
 
 class WeekFragment : Fragment() {
 
@@ -36,12 +37,13 @@ class WeekFragment : Fragment() {
     }
 
     private fun getWeekShedule(): List<SheduleItem> {
-        val day = mutableListOf<SheduleItem>()
-        day.add(SheduleItem("15-14", "it", "326", "vera"))
-        day.add(SheduleItem("12-14", "it", "326", "vera"))
-        day.add(SheduleItem("12-14", "it", "326", "vera"))
-        day.add(SheduleItem("12-14", "it", "326", "vera"))
-        day.add(SheduleItem("12-14", "it", "326", "vera"))
-        return day
+        val week = mutableListOf<SheduleItem>()
+        return week
+    }
+
+    private fun isEvenWeek(): Boolean {
+        val calendar = Calendar.getInstance()
+        val weekNumber = calendar.get(Calendar.WEEK_OF_YEAR)
+        return weekNumber % 2 == 0
     }
 }

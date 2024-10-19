@@ -27,7 +27,7 @@ class RootFragment : Fragment() {
             .replace(binding.fragmentContainer.id, TodayFragment())
             .commit()
 
-        binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.today_item -> {
                     childFragmentManager.beginTransaction()

@@ -1,11 +1,12 @@
 package com.example.sheduleapp
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sheduleapp.databinding.ItemSheduleBinding
 
-class SheduleAdapter(private val sheduleList: List<SheduleItem>) :
+class SheduleAdapter(private var sheduleList: List<SheduleItem>) :
     RecyclerView.Adapter<SheduleAdapter.SheduleViewHolder>() {
 
      inner class SheduleViewHolder(private val binding: ItemSheduleBinding) :
@@ -28,9 +29,11 @@ class SheduleAdapter(private val sheduleList: List<SheduleItem>) :
         holder.bind(sheduleList[position])
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateData(newSheduleList: List<SheduleItem>) {
+        sheduleList = newSheduleList
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount(): Int = sheduleList.size
 }
-
-
-
-

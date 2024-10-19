@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -18,6 +19,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            resValue("string", "shedule_database", "12345678")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -36,6 +40,12 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+    sourceSets {
+        getByName("main") {
+            kotlin.srcDir("build/generated/ksp/main/kotlin")
+        }
+    }
 }
 
 dependencies {
@@ -48,4 +58,11 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler.v250)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.fragment.ktx)
+    debugImplementation(libs.debug.db)
+    debugImplementation(libs.debug.db.encrypt)
 }
