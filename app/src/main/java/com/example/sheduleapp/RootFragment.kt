@@ -8,16 +8,17 @@ import android.view.ViewGroup
 import com.example.sheduleapp.databinding.FragmentRootBinding
 
 class RootFragment : Fragment() {
-    private lateinit var binding: FragmentRootBinding
+    private var _binding: FragmentRootBinding? = null
+    private val binding
+        get() = _binding ?: throw IllegalStateException("Binding must not be null")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentRootBinding.inflate(inflater, container, false)
+    ): View {
+        _binding = FragmentRootBinding.inflate(inflater, container, false)
         return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

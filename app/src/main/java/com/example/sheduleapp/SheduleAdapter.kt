@@ -10,6 +10,7 @@ class SheduleAdapter(private val sheduleList: List<SheduleItem>) :
 
      inner class SheduleViewHolder(private val binding: ItemSheduleBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(sheduleItem: SheduleItem) {
             binding.textViewTime.text = sheduleItem.time
             binding.textViewName.text = sheduleItem.name

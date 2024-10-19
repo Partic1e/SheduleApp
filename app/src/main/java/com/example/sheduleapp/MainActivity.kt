@@ -6,10 +6,13 @@ import com.example.sheduleapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private var binding: ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
+    private var _binding: ActivityMainBinding? = null
+    private val binding
+        get() = _binding ?: throw IllegalStateException("Binding must not be null")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         if (savedInstanceState == null) {
@@ -18,4 +21,6 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
     }
+
+
 }
