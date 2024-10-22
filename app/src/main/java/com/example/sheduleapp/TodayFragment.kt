@@ -16,11 +16,12 @@ class TodayFragment : Fragment() {
     private val binding
         get() = _binding ?: throw IllegalStateException("Binding must not be null")
 
-    // нормально сделать через свойство надо
-    private lateinit var todayAdapter: SheduleAdapter
+    private var _todayAdapter: DayAdapter? = null
+    private val todayAdapter
+        get() = _todayAdapter ?: throw IllegalStateException()
 
-    private val sheduleViewModel: SheduleViewModel by viewModels {
-        SheduleViewModelFactory(AppDatabase.getDatabase(requireContext()).sheduleDao())
+    private val scheduleViewModel: ScheduleViewModel by viewModels {
+        ScheduleViewModelFactory(AppDatabase.getDatabase(requireContext()).sheduleDao())
     }
 
     override fun onCreateView(
@@ -35,13 +36,13 @@ class TodayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        todayAdapter = SheduleAdapter(listOf())
+        _todayAdapter = DayAdapter(listOf())
         binding.recyclerViewToday.apply {
             adapter = todayAdapter
             layoutManager = LinearLayoutManager(context)
         }
 
-        sheduleViewModel.getTodayShedule(getDayOfWeek(), isEvenWeek()) { sheduleItems ->
+        scheduleViewModel.getTodaySchedule(getDayOfWeek(), isEvenWeek()) { sheduleItems ->
             todayAdapter.updateData(sheduleItems)
         }
     }
@@ -49,13 +50,12 @@ class TodayFragment : Fragment() {
     private fun getDayOfWeek(): Int {
         val calendar = Calendar.getInstance()
         val day = calendar.get(Calendar.DAY_OF_WEEK)
-        return if (day == Calendar.SUNDAY) 7 else day - 1
+        return if (day == Calendar.SUNDAY) 1 else day - 1
     }
 
     private fun isEvenWeek(): Int {
         val calendar = Calendar.getInstance()
         val weekNumber = calendar.get(Calendar.WEEK_OF_YEAR)
-        // номер недели в году не сходится с номером недели обучения, поэтому затычка такая
         return if (weekNumber % 2 == 0) 1 else 2
     }
 }

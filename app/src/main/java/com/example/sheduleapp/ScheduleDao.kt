@@ -5,14 +5,11 @@ import androidx.room.Insert
 import androidx.room.Query
 
 @Dao
-interface SheduleDao {
+interface ScheduleDao {
 
     @Query("SELECT * FROM shedule_items WHERE dayOfWeek = :dayOfWeek AND weekNumber = :weekNumber")
-    suspend fun getSheduleForDay(dayOfWeek: Int, weekNumber: Int): List<SheduleItem>
+    suspend fun getScheduleForDay(dayOfWeek: Int, weekNumber: Int): List<ScheduleItem>
 
     @Insert
-    suspend fun insertSheduleItem(item: SheduleItem)
-
-    @Insert
-    suspend fun insertAll(items: List<SheduleItem>)
+    suspend fun insertAll(items: List<ScheduleItem>)
 }

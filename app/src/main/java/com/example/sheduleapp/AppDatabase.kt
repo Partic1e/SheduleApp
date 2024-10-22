@@ -6,10 +6,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [SheduleItem::class], version = 1, exportSchema = false)
+@Database(entities = [ScheduleItem::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun sheduleDao(): SheduleDao
+    abstract fun sheduleDao(): ScheduleDao
 
     companion object {
         @Volatile

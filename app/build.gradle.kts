@@ -19,9 +19,6 @@ android {
     }
 
     buildTypes {
-        debug {
-            resValue("string", "shedule_database", "12345678")
-        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -63,6 +60,5 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.fragment.ktx)
-    debugImplementation(libs.debug.db)
-    debugImplementation(libs.debug.db.encrypt)
+    implementation(libs.gson)
 }

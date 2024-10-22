@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.example.sheduleapp.databinding.FragmentRootBinding
 
 class RootFragment : Fragment() {
+
     private var _binding: FragmentRootBinding? = null
     private val binding
         get() = _binding ?: throw IllegalStateException("Binding must not be null")
