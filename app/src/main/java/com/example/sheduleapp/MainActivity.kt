@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sheduleapp.databinding.ActivityMainBinding
 import android.content.Context
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineScope
@@ -43,11 +44,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadData(context: Context): List<ScheduleItem> {
-        val inputStream = context.assets.open("initial_data.json")
-        val bufferedReader = BufferedReader(inputStream.reader())
-        val jsonString = bufferedReader.use { it.readText() }
+        return try {
+            val inputStream = context.assets.open("schedule_data.json")
+            val bufferedReader = BufferedReader(inputStream.reader())
+            val jsonString = bufferedReader.use { it.readText() }
 
-        val listType = object : TypeToken<List<ScheduleItem>>() {}.type
-        return Gson().fromJson(jsonString, listType)
+            val listType = object : TypeToken<List<ScheduleItem>>() {}.type
+            Gson().fromJson(jsonString, listType)
+        } catch (e: Exception) {
+            Log.e("MainActivity", "Error loading data from assets: ${e.message}")
+            emptyList()
+        }
     }
 }
